@@ -12,6 +12,4 @@ run systemctl restart proftpd
 RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 22 3306
-
-CMD ["/sbin/my_init"]
+EXPOSE 22 21
