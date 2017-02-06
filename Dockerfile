@@ -1,17 +1,16 @@
 #############################################################
 # Archivo Dockerfile para ejecutar contenedores en Memcached
-# Basado en una imagen de Ubuntu
+# Basado en una imagen de Debian
 #############################################################
 
-# Establece la imagen de base a utilizar para Ubuntu
+# Establece la imagen de base a utilizar para Debian
 FROM debian
 
 # Establece el autor (maintainer) del archivo (tu nombre - el autor del archivo)
-MAINTAINER debian
+MAINTAINER FranHidalgo
 
-# Actualización de la lista de fuentes del repositorio de aplicaciones por defecto
+# Actualización de la lista de fuentes del repositorio de aplicaciones por defecto y actualizacion de paquetes
 RUN apt-get update
-RUN apt-get upgrade
 
 # Instalar Memcached
 RUN apt-get install -y memcached
