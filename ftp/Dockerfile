@@ -13,9 +13,9 @@ RUN service proftpd restart
 RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 22 21
+EXPOSE 21
 
-ENTRYPOINT /usr/sbin/proftpd --nodaemonize
+CMD /usr/sbin/proftpd -n
 
-CMD ["proftpd"]
+#CMD ["proftpd"]
 
