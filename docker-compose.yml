@@ -1,0 +1,16 @@
+version: '3'
+services:
+    php-fpm:
+        build: ./php
+        networks:
+            red1:
+                ipv4_address: 172.16.2.25
+        volumes:
+            - /dir/www:/var/www
+networks:
+    red1:
+        driver: bridge
+        ipam:
+            config:
+            - subnet: 172.16.0.0/16
+
