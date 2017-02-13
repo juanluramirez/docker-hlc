@@ -1,16 +1,61 @@
 version: '3'
 services:
+    haproxy:
+        build: ./Balanceador
+        ports:
+          - "8083:8081"
+        networks:
+            red1:
+                ipv4_address: 172.16.1.25
+    ftp:
+        build: ./ftp
+        networks:
+            red1:
+                ipv4_address: 172.16.3.25
+        volumes:
+            - wwwVolume:/var/www
+    apache1:
+        build: ./apache2
+        ports:
+          - "81:80"
+        networks:
+            red1:
+                ipv4_address: 172.16.4.25
+        volumes:
+            - wwwVolume:/var/www
+    apache2:
+        build: ./apache2
+        ports:
+          - "82:80"
+        networks:
+            red1:
+                ipv4_address: 172.16.5.25
+        volumes:
+            - wwwVolume:/var/www
     php-fpm:
         build: ./php
         networks:
             red1:
                 ipv4_address: 172.16.2.25
         volumes:
-            - /dir/www:/var/www
+            - wwwVolume:/var/www
+    memcached:
+        build: ./memcached
+        networks:
+            red1:
+                ipv4_address: 172.16.6.25
+#    mysql:
+#        build: ./MySQL
+#        networks:
+#            red1:
+#                ipv4_address: 172.16.7.25
+#        volumes:
+#            - /dir/bd:/var/lib/mysql
 networks:
     red1:
         driver: bridge
         ipam:
             config:
             - subnet: 172.16.0.0/16
-
+volumes:
+  wwwVolume: {}
