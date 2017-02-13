@@ -7,7 +7,8 @@ RUN echo "mysql-server-5.5 mysql-server/root_password password string root" | de
     && apt-get install -y mysql-server
 
 CMD ["chmod 755 usuarios.sh"]
-CMD ["./usuarios.sh wordpress wordpress wordpress"]
 ADD my.cnf /etc/mysql/my.conf
+ADD usuarios.sh /etc/mysql/usuarios.sh
+CMD ["/etc/mysql/usuarios.sh wordpress wordpress wordpress"]
 
 EXPOSE 3306
