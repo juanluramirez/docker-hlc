@@ -1,22 +1,13 @@
-FROM debian:jessie
+FROM debian
+MAINTAINER adrian731gg@gmail.com
 
-# añadir los repositorios
-# add our repositories 
-RUN echo "deb http://http.us.debian.org/debian/ jessie main contrib non-free" > /etc/apt/sources.list
-RUN echo "deb-src http://http.us.debian.org/debian/ jessie main contrib non-free" > /etc/apt/sources.list
-
-# actualizar e instalar
-# update and install 
 RUN apt-get update
+RUN echo "mysql-server-5.5 mysql-server/root_password password string root" | d$
+    && echo "mysql-server-5.5 mysql-server/root_password_again password string $
+    && apt-get install -y mysql-server
 
-RUN apt-get update && apt-get install -y mysql && apt-get clean && rm -rf /var/lib/apt/lists/* 
-
+CMD ["chmod 755 usuarios.sh"]
+CMD ["./usuarios.sh wordpress wordpress wordpress"]
 ADD my.cnf /etc/mysql/my.conf
-
-RUN mysql -uroot -e "create database wordpress;"
-
-RUN mysql -uroot -e "CREATE USER 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';"
-
-RUN mysql -uroot -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost';   
 
 EXPOSE 3306
