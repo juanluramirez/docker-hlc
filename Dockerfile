@@ -1,9 +1,5 @@
 FROM debian:jessie
 
-# añadir un usuario y un grupo para asegurar la consitencias de las ID's, independientemente de las dependencias que se añadan
-# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r mysql && useradd -r -g mysql mysql
-
 # añadir los repositorios
 # add our repositories 
 RUN echo "deb http://http.us.debian.org/debian/ jessie main contrib non-free" > /etc/apt/sources.list
@@ -13,6 +9,6 @@ RUN echo "deb-src http://http.us.debian.org/debian/ jessie main contrib non-free
 # update and install 
 RUN apt-get update
 
-RUN apt-get -y install mysql-server
+RUN apt-get update && apt-get install -y mysql && apt-get clean && rm -rf /var/lib/apt/lists/* 
 
 EXPOSE 3306
